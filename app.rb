@@ -8,6 +8,11 @@ Dir["./models/*.rb"].each do |file|
   require file
 end
 
+configure do
+  set :show_exceptions, :after_handler
+  set :raise_errors, false
+end
+
 # routes
 get '/' do
   '/'
@@ -18,6 +23,18 @@ get '/ping' do
 end
 
 get '/bangumis' do
-  Bangumi.to_s
+  Bangumi.reverse_order(:id).limit(10).all.to_s
+end
+
+post '/bangumis' do
+  valid_keys = %w[title classifcation link uploaded_at magnet_link]
+  bangumi = Bangumi.new(params.select { |k, v| valid_keys.include?(k) } )
+  halt(400, bangumi.errors.full_messages.join(', ')) unless bangumi.valid?
+  bangumi.save
+  "OK"
+end
+
+error do
+  env['sinatra.error'].message
 end
 
