@@ -13,6 +13,7 @@ gem 'sequel'
 
 # for deployment
 gem 'capistrano'
+gem 'capistrano-rvm'
 gem 'capistrano-bundler'
 gem 'capistrano-puma'
 
