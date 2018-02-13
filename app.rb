@@ -1,8 +1,11 @@
 require 'sinatra'
 require 'sinatra/reloader' if development?
 require 'sequel'
+require 'json'
+require 'sequel/plugins/serialization'
 
 Sequel.sqlite("./db/#{development? ? 'development' : 'production'}.sqlite3")
+Sequel::Model.plugin :json_serializer
 
 Dir["./models/*.rb"].each do |file|
   require file
@@ -23,7 +26,7 @@ get '/ping' do
 end
 
 get '/bangumis' do
-  Bangumi.reverse_order(:id).limit(10).all.to_s
+  Bangumi.reverse_order(:id).limit(10).to_json
 end
 
 post '/bangumis' do
