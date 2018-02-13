@@ -11,3 +11,8 @@ gem 'sqlite3'
 # orm framework
 gem 'sequel'
 
+# for deployment
+gem 'capistrano'
+gem 'capistrano-bundler'
+gem 'capistrano-puma'
+
