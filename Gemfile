@@ -12,8 +12,8 @@ gem 'sqlite3'
 gem 'sequel'
 
 # for deployment
-gem 'capistrano'
+gem 'capistrano', '~> 3.6'
 gem 'capistrano-rvm'
-gem 'capistrano-bundler'
-gem 'capistrano-puma'
+gem 'capistrano-bundler', '~> 1.3'
+gem 'capistrano3-puma'
 

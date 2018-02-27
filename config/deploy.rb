@@ -4,7 +4,6 @@ lock "~> 3.10.1"
 set :application, "Chiaki"
 set :repo_url, "git@github.com:Tsumugi52961/Chiaki.git"
 
-
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
@@ -22,7 +21,7 @@ set :deploy_to, "/var/www/Chiaki"
 # set :pty, true
 
 # Default value for :linked_files is []
-# append :linked_files, "config/database.yml", "config/secrets.yml"
+append :linked_files, "db/production.sqlite3"
 
 # Default value for linked_dirs is []
 # append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
@@ -40,16 +39,22 @@ set :deploy_to, "/var/www/Chiaki"
 # set :ssh_options, verify_host_key: :secure
 
 namespace :deploy do
+  desc 'Sequel migration'
   task :migration do
-    on roles(:all) do
-      execute "whoami"
-      execute "pwd"
+    on roles(:db) do
       within release_path do
         execute "bundle", "exec sequel -m db/migrations sqlite://db/production.sqlite3"
       end
     end
   end
 
-  after :finishing, :migration
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+    end
+  end
+
+  after :publishing, :migration
+  after :migration, :restart
 end
 
