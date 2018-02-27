@@ -38,3 +38,18 @@ set :deploy_to, "/var/www/Chiaki"
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
+
+namespace :deploy do
+  task :migration do
+    on roles(:all) do
+      execute "whoami"
+      execute "pwd"
+      within release_path do
+        execute "bundle", "exec sequel -m db/migrations sqlite://db/production.sqlite3"
+      end
+    end
+  end
+
+  after :finishing, :migration
+end
+
