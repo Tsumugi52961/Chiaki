@@ -30,7 +30,7 @@ get '/bangumis' do
 end
 
 post '/bangumis' do
-  valid_keys = %w[title classifcation link uploaded_at magnet_link]
+  valid_keys = %w[title classification link uploaded_at magnet_link]
   bangumi = Bangumi.new(params.select { |k, v| valid_keys.include?(k) } )
   halt(400, bangumi.errors.full_messages.join(', ')) unless bangumi.valid?
   bangumi.save

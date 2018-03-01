@@ -4,7 +4,7 @@ Sequel.migration do
       primary_key :id
       String :title, null: false
       String :uploaded_at
-      String :classfication
+      String :classification
       String :link
       String :magnet_link, null: false
     end
