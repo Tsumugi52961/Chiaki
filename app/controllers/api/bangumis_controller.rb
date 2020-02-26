@@ -1,23 +1,25 @@
 # frozen_string_literal: true
 
-class BangumisController < ApplicationController
-  def index
-    @bangumis = paginate Bangumi.ransack(params[:q]).result
-  end
+module Api
+  class BangumisController < ApplicationController
+    def index
+      @bangumis = paginate Bangumi.ransack(params[:q]).result
+    end
 
-  def show
-    @bangumi = Bangumi.find(params[:id])
-  end
+    def show
+      @bangumi = Bangumi.find(params[:id])
+    end
 
-  def create
-    Bangumi.create!(bangumi_params)
-    render :show
-  end
+    def create
+      Bangumi.create!(bangumi_params)
+      render :show
+    end
 
-  private
+    private
 
-  def bangumi_params
-    params.require(:bangumi)
-          .permit(:title, :link, :magnet_link, :published_at)
+    def bangumi_params
+      params.require(:bangumi)
+            .permit(:title, :link, :magnet_link, :published_at)
+    end
   end
 end
