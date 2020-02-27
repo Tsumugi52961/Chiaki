@@ -1,5 +1,3 @@
 # frozen_string_literal: true
 
-json.array @bangumis do |bangumi|
-  json.partial! '_bangumi', bangumi
-end
+json.array! @bangumis, partial: 'bangumi', as: :bangumi
