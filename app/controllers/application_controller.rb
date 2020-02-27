@@ -13,7 +13,7 @@ class ApplicationController < ActionController::API
     records.page(params[:page]).per(params[:per])
   end
 
-  def record_not_found(exception)
+  def record_not_found
     render json: { errors: { record: ['not found'] } }, status: 404
   end
 end

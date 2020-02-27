@@ -6,6 +6,7 @@ class Bangumi < ApplicationRecord
   validates :magnet_link, presence: true
 
   belongs_to :subscription
+  delegate :name, to: :subscription
 
   timestamp :published_at
 end

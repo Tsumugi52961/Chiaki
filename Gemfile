@@ -57,3 +57,6 @@ gem 'ransack'
 
 # for paginate the results of database query
 gem 'kaminari'
+
+# Job scheduler for Ruby (at, cron, in and every jobs).
+gem 'rufus-scheduler'
