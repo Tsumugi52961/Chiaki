@@ -10,7 +10,7 @@ class GetBangumis
     begin
       rss = RSS::Parser.parse(DMHY_RSS, false)
     rescue StandardError => e
-      Rails.logger.warn("[BGM-NOTI]Bad Network: #{e.message}")
+      Rails.logger.warn("[BGM-NOTI] Bad Network: #{e.message}")
       return
     end
 
@@ -21,7 +21,7 @@ class GetBangumis
 
   private
 
-  def format_bangumis(items)
+  def self.format_bangumis(items)
     bangumis = items.map do |item|
       Bangumi.new(
         title: item.title,
@@ -32,14 +32,14 @@ class GetBangumis
       )
     end
 
-    Rails.logger.info("[BGM-NOTI]Fetching #{bangumis.count} bangumis.")
+    Rails.logger.info("[BGM-NOTI] Fetching #{bangumis.count} bangumis.")
 
     bangumis
   end
 
-  def filter(new_bangumis)
+  def self.filter(new_bangumis)
     stats = { success: 0, failed: 0 }
-    Subscription.enabled.all do |subscription|
+    Subscription.enabled.each do |subscription|
       cur_exp = Regexp.new(subscription['rule'])
       new_bangumis.each do |bangumi|
         bangumi.subscription = subscription
@@ -52,6 +52,6 @@ class GetBangumis
         end
       end
     end
-    Rails.logger.warn("[BGM-NOTI]Complete filtering. #{stats[:success]} bangumis saved, and #{stats[:failed]} failed to save")
+    Rails.logger.warn("[BGM-NOTI] Complete filtering. #{stats[:success]} bangumis saved, and #{stats[:failed]} failed to save")
   end
 end
