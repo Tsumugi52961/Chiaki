@@ -124,7 +124,7 @@ GEM
       ast (~> 2.4.0)
     polyamorous (2.3.2)
       activerecord (>= 5.2.1)
-    puma (3.12.2)
+    puma (3.12.4)
     raabro (1.1.6)
     rack (2.2.2)
     rack-test (1.1.0)
@@ -229,7 +229,7 @@ DEPENDENCIES
   jbuilder
   kaminari
   listen (>= 3.0.5, < 3.2)
-  puma (~> 3.11)
+  puma (~> 3.12)
   rails (~> 5.2.1)
   ransack
   rspec-rails
