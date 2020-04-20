@@ -1,3 +1,3 @@
 # frozen_string_literal: true
 
-json.extract! subscription, :name, :rule, :status
+json.extract! subscription, :id, :name, :rule, :status
